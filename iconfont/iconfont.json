@@ -1,0 +1,51 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "700867",
+      "name": "汉堡菜单",
+      "font_class": "hanbaocaidan",
+      "unicode": "e661",
+      "unicode_decimal": 58977
+    },
+    {
+      "icon_id": "716057",
+      "name": "邮件",
+      "font_class": "youjian",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "4579094",
+      "name": "博客",
+      "font_class": "boke",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "5388065",
+      "name": "消息_o",
+      "font_class": "xiaoxi_o",
+      "unicode": "ebc9",
+      "unicode_decimal": 60361
+    },
+    {
+      "icon_id": "32374020",
+      "name": "品牌_推特",
+      "font_class": "pinpai_tuite",
+      "unicode": "e755",
+      "unicode_decimal": 59221
+    },
+    {
+      "icon_id": "37633284",
+      "name": "推特",
+      "font_class": "tuite",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    }
+  ]
+}

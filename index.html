@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HyperFlex</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="./iconfont/iconfont.css">
+  <style>
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 30px;
+      height: 25px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 10;
+    }
+
+    .menu-toggle span {
+      width: 100%;
+      height: 3px;
+      background-color: #fff;
+      border-radius: 5px;
+      transition: all 0.3s linear;
+    }
+
+    @media (max-width: 1024px) {
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 70%;
+        max-width: 300px;
+        background: rgba(0, 0, 0, 0.9);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.3s ease-in-out;
+        z-index: 9;
+      }
+
+      .nav.active {
+        right: 0;
+      }
+
+      .nav ul {
+        flex-direction: column;
+      }
+
+      .nav ul li {
+        margin: 15px 0;
+      }
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      display: none;
+      flex-direction: column;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .dropdown-menu.active {
+      display: flex;
+      animation: slideDown 0.5s ease forwards;
+    }
+
+    .dropdown-menu ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dropdown-menu li {
+      margin: 15px 0;
+      text-align: center;
+    }
+
+    .dropdown-menu a {
+      color: rgba(209, 213, 220, 1);
+      text-decoration: none;
+      font-size: 18px;
+      transition: color 0.3s;
+      display: block;
+      padding: 10px;
+    }
+
+    .dropdown-menu .icon-tuite {
+      font-size: 25px;
+    }
+
+    .dropdown-menu .icon-youjian {
+      font-size: 30px;
+    }
+
+    .dropdown-menu a:hover {
+      color: var(--color-white);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 5px;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .nav {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        height: 70px;
+      }
+
+      .logo img {
+        height: 35px;
+      }
+
+      .icons a {
+        font-size: 18px;
+        margin-left: 15px;
+      }
+    }
+
+    .about .bottom,
+    .portfolio .bottom ul {
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      perspective: 1000px;
+    }
+
+    .about .box,
+    .portfolio .bottom ul li {
+      will-change: transform, opacity;
+    }
+
+    .about .pic img,
+    .portfolio .bottom ul li img {
+      transition: opacity 0.3s ease;
+    }
+
+    @keyframes forceReflow {
+      0% {
+        opacity: 0.999;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 1599px) {
+
+      .about .bottom,
+      .portfolio .bottom ul {
+        animation: forceReflow 0.001s;
+      }
+    }
+
+    @media (max-width: 767px) {
+
+      .about .bottom,
+      .portfolio .bottom ul {
+        animation: forceReflow 0.001s;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg"></div>
+  <div class="header wrapper">
+    <div class="navbar">
+      <!-- logo -->
+      <div class="pic">
+        <a href="index.html">
+          <img src="./images/logo.png" alt="">
+        </a>
+      </div>
+
+      <!-- nav -->
+      <div class="nav">
+        <ul>
+          <li>
+            <a href="#home">Home</a>
+          </li>
+          <li>
+            <a href="#about">About Us</a>
+          </li>
+          <li>
+            <a href="#portfolio">Portfolio</a>
+          </li>
+        </ul>
+      </div>
+      <!-- icons -->
+      <div class="icons">
+        <ul>
+          <li>
+            <a href="https://x.com/InfinityLabs_" target="_blank" class="iconfont icon-tuite"></a>
+          </li>
+          <li>
+            <a href="#" class="iconfont icon-youjian"></a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 菜单按钮 -->
+      <button class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- 下拉菜单 -->
+      <div class="dropdown-menu" id="dropdownMenu">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li>
+            <a href="https://x.com/InfinityLabs_" target="_blank" class="iconfont icon-tuite"></a>
+          </li>
+          <li>
+            <a href="#" class="iconfont icon-youjian"></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="home wrapper" id="home">
+    <!-- logo -->
+    <div class="logo">
+      <img src="./images/logo.png" alt="">
+    </div>
+    <!-- content -->
+    <div class="title">
+      <h2>ACCELERATING CROSS-FIELD COLLABORATION</h2>
+    </div>
+    <div class="para">
+      <p>Integrating traditional capital and infrastructure resources into the field of blockchain</p>
+    </div>
+    <!-- button -->
+    <div class="btn">
+      <button>Contact us</button>
+    </div>
+    <!-- <button></button> -->
+  </div>
+
+  <div class="about wrapper" id="about">
+    <!-- <div class="bg"></div> -->
+    <div class="top">
+      <h2>Focusing on Web3</h2>
+    </div>
+    <div class="bottom">
+      <div class="left box">
+        <div class="txt">
+          <p>About Us</p>
+        </div>
+        <div class="pic">
+          <img src="./images/aboutus1.png" alt="">
+        </div>
+      </div>
+      <div class="right box">
+        <div class="txt">
+          <p>Hyperflex Labs is an investment institution focusing on Web3 industry.<br>
+            Its investment portfolio consists of three categories: <span>blockchain infrastructure construction</span>,
+            <span>early-stage blockchain projects investment</span>, and <span>open financial Ecosystem services</span>,
+            with the
+            mission of
+            integrating
+            traditional capital and infrastructure resources into the field of blockchain and accelerating cross-field
+            collaboration.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about wrapper">
+    <!-- <div class="bg"></div> -->
+    <div class="top">
+      <h2>Digital Fund</h2>
+    </div>
+    <div class="bottom">
+      <div class="left box">
+        <div class="txt">
+          <p>About Us</p>
+        </div>
+        <div class="pic">
+          <img src="./images/aboutus2.png" alt="">
+        </div>
+      </div>
+      <div class="right box">
+        <div class="txt">
+          <p>Hyperflex Labs is a premier investment and incubation platform dedicated to advancing and scaling
+            blockchain innovations. We provide comprehensive support through venture funding, technology solutions,
+            community management, legal and compliance advisory, and a wide array of tailored resources. <br>
+            By incubating and investing in high-potential projects at an early stage, Infinity Labs Digital Fund has
+            built a diversified and forward-looking portfolio that includes notable names such as Crust, TON Foundation,
+            Dora Factory, and Matters.
+            This strategic approach enables us to deploy capital across key verticals within the blockchain ecosystem,
+            capturing exceptional value in the industry’s nascent phases.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about wrapper">
+    <div class="top">
+      <h2>Veteran Team</h2>
+    </div>
+    <div class="bottom">
+      <div class="left box">
+        <div class="txt">
+          <p>About Us</p>
+        </div>
+        <div class="pic">
+          <img src="./images/aboutus3.png" alt="">
+        </div>
+      </div>
+      <div class="right box">
+        <div class="txt">
+          <p>
+            Hyperflex Labs is powered by a veteran team with deep-rooted expertise across the entire Web3 spectrum. Our
+            members hail from diverse yet complementary backgrounds—traditional finance, law, technology, marketing, and
+            product management—bringing a wealth of experience to the table. <br>This unique composition allows us to
+            provide unparalleled, full-lifecycle support to our portfolio projects. We move beyond capital to offer
+            hands-on industry guidance and practical solutions, ensuring founders are equipped to navigate challenges
+            and scale their innovations effectively.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="portfolio wrapper" id="portfolio">
+    <div class="top">
+      <h2>Meet our <span>top-tier</span> <br>portfolio</h2>
+    </div>
+    <div class="bottom">
+      <ul>
+        <li>
+          <img src="./images/pf1.png" alt="">
+        </li>
+        <li>
+          <img src="./images/pf2.png" alt="">
+        </li>
+        <li>
+          <img src="./images/pf3.png" alt="">
+        </li>
+        <li>
+          <img src="./images/pf4.png" alt="">
+        </li>
+        <li>
+          <img src="./images/pf5.png" alt="">
+        </li>
+        <li>
+          <img src="./images/pf6.png" alt="">
+        </li>
+        <li>
+          <img src="./images/pf7.png" alt="">
+        </li>
+        <li>
+          <img src="./images/pf8.png" alt="">
+        </li>
+        <li>
+          <img src="./images/pf9.png" alt="">
+        </li>
+        <li>
+          <img src="./images/pf10.png" alt="">
+        </li>
+        <li>
+          <img src="./images/pf11.png" alt="">
+        </li>
+        <li>
+          <img src="./images/pf12.png" alt="">
+        </li>
+        <li>
+          <img src="./images/pf13.png" alt="">
+        </li>
+        <li>
+          <img src="./images/pf14.png" alt="">
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer wrapper">
+    <div class="top">
+      <div class="left">
+        <div class="pic">
+          <img src="./images/logo.png" alt="">
+        </div>
+        <div class="txt">
+          <p>From Idea to Ecosystem</p>
+        </div>
+      </div>
+      <div class="right">
+        <dl>
+          <dt>NAVIGATION</dt>
+          <dd>
+            <a href="#home">Home</a>
+          </dd>
+          <dd>
+            <a href="#about">About Us</a>
+          </dd>
+          <dd>
+            <a href="#portfolio">Portfolio</a>
+          </dd>
+          <dd>
+            <a href="#">Contact Us</a>
+          </dd>
+        </dl>
+        <dl>
+          <dt>SOCIAL MEDIA</dt>
+          <dd>
+            <a href="https://x.com/InfinityLabs_" target="_blank"><span class="iconfont icon-pinpai_tuite
+"></span> X/Twitter</a>
+          </dd>
+          <!-- <dd>
+            <a href="#"><span class="iconfont icon-boke"></span> Blog</a>
+          </dd> -->
+          <dd>
+            <a href="#"><span class="iconfont icon-xiaoxi_o"></span> Email</a>
+          </dd>
+        </dl>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="txt">
+        <p>© 2025 — Skitbit International Uk</p>
+      </div>
+      <div class="lk">
+        <a href="#">Revision Policy</a>
+        <a href="#">Terms & Conditions</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const dropdownMenu = document.querySelector('.dropdown-menu');
+
+      menuToggle.addEventListener('click', function () {
+        dropdownMenu.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+      });
+
+      document.addEventListener('click', function (event) {
+        if (!menuToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+          dropdownMenu.classList.remove('active');
+          menuToggle.classList.remove('active');
+        }
+      });
+
+      const dropdownLinks = dropdownMenu.querySelectorAll('a');
+      dropdownLinks.forEach(link => {
+        link.addEventListener('click', function () {
+          dropdownMenu.classList.remove('active');
+          menuToggle.classList.remove('active');
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
